@@ -1,0 +1,40 @@
+image: "ubi9/python-311"
+variables:
+  # UBI 9 python uses an environment variable to disable the cache, so we
+  # explicitly reverse that here. (pip is needed for pre-commit)
+  PIP_NO_CACHE_DIR: ""
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  UV_CACHE_DIR: "$CI_PROJECT_DIR/.cache/uv"
+  UV_SYSTEM_PYTHON: "true"
+  TEMP_PROJ: "/tmp/temp-project"
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  fallback_keys:
+    - $CI_DEFAULT_BRANCH
+  paths:
+    - .cache/uv
+    - .cache/pip
+
+before_script:
+  - python --version; pip --version
+  # install uv
+  - curl -LsSf https://astral.sh/uv/0.5.1/install.sh | sh
+  - uv tool install copier@9.4.1
+  - uv tool install poethepoet
+  - uv tool install pre-commit
+
+test:
+  script:
+    - mkdir $TEMP_PROJ
+    - git init $TEMP_PROJ
+    # instantiate a new project from template
+    - copier copy . $TEMP_PROJ 
+      -d project_name="ci_project" 
+      -d authors="A1 <a1@email.com>,A2 <a2@email.com>" 
+      -d project_description="desc" 
+      -l
+    # test set up in new project
+    - cd $TEMP_PROJ
+    - poe dev-setup
+    - poe check

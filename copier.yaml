@@ -1,0 +1,28 @@
+project_name:
+  type: str
+  help: "Project Name"
+
+project_slug: "{{ project_name|lower|replace(' ', '-') }}"
+package_name: "{{ project_name|lower|replace(' ', '_') }}"
+
+project_description:
+  type: str
+authors: "A1 <a1@email.com>,A2 <a2@email.com>"
+
+python_version:
+  type: str
+  choices: ["3.9", "3.11", "3.12"]
+  # Only UBI supported versions. 3.13 not included for now, since many
+  # packages don't have wheels for it yet (2024/10/24).
+  help: "Python version:"
+  default: "3.11"
+
+line_length:
+  type: str
+  choices: ["79", "80", "88", "100", "110", "120"]
+  default: "88"
+
+
+# Copier Options
+_answers_file: python-project-kickstarter.yml
+_subdirectory: template
