@@ -1,0 +1,57 @@
+site_name: "{{ project_name }}"
+
+nav:
+  - Home: index.md
+  - Code Reference: reference/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.snippets:
+      base_path: [!relative $config_dir]
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tasklist
+
+plugins:
+  - offline
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  # Example API docs: https://mkdocstrings.github.io/reference/
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          import:
+            - https://docs.python.org/3/objects.inv
+          options:
+            docstring_options:
+              ignore_init_summary: true
+              returns_multiple_items: false
+            docstring_section_style: list
+            docstring_style: google
+            heading_level: 1
+            inherited_members: true
+            merge_init_into_class: true
+            separate_signature: true
+            show_root_heading: true
+            show_signature_annotations: true
+            show_symbol_type_heading: true  # sponsors only
+            show_symbol_type_toc: true  # sponsors only
+            signature_crossrefs: true  # sponsors only
+            summary: true  # sponsors only
+
+watch:
+  - src

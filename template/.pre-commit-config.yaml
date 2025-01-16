@@ -1,0 +1,75 @@
+# Default all hooks to only run on pre-commit.
+default_stages:
+  - pre-commit
+
+default_install_hook_types:
+  # Uncomment for the conventional-pre-commit if using.
+  # - commit-msg
+  - pre-commit
+
+repos:
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+
+  # Uncomment to enforce conventional commit messages.
+  # - repo: https://github.com/compilerla/conventional-pre-commit
+  #  rev: v3.0.0
+  #  hooks:
+  #    - id: conventional-pre-commit
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      #- id: check-json # if you have a json you want to check, uncomment this.
+      - id: check-merge-conflict
+        args: [--assume-in-merge]
+      - id: check-symlinks
+        always_run: true  # silences check-hooks-apply if we don't have symlinks.
+      - id: check-yaml
+        # Need the unsafe flag because mkdocs.yml has a yaml directive.
+        args: [--unsafe]
+      - id: destroyed-symlinks
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: no-commit-to-branch
+        args: [--branch=main]
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.4.26
+    hooks:
+      # Update the uv lockfile
+      - id: uv-lock
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.7
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [--fix]
+        types_or: [python, pyi, jupyter]
+
+      # Run the formatter.
+      - id: ruff-format
+        types_or: [python, pyi, jupyter]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      # Use prettier to format markdown.
+      - id: prettier
+        args: [--prose-wrap=always]
+        types: [markdown]
+
+  - repo: https://github.com/pappasam/toml-sort
+    rev: v0.23.1
+    hooks:
+      # Keep pyproject.toml sorted. Esp. poetry likes to add dependencies at the
+      # end, causing merge conflicts.
+      - id: toml-sort-fix
+        files: "pyproject.toml"

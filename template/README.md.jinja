@@ -1,0 +1,218 @@
+# {{ project_name }}
+
+{{ project_description | wordwrap }}
+
+## Getting Started
+
+### Necessary Tooling
+This project uses `uv` for dependency and python version management and `poe`
+for task running.
+- If you don't have uv installed, see the [uv documentation](https://docs.astral.sh/uv/getting-started/installation/).
+   > 💡 **We currently use uv version 0.5.1** - you can specify the version with
+   > the download URL `https://astral.sh/uv/${UV_VERSION}/install.sh`
+   > You can check the currently used version in `gitlab-ci.yml:2`.
+
+- if you don't have poe installed (see [poe documentation](https://poethepoet.natn.io/installation.html)), we recommend
+  installing it using `uv`:
+```bash
+uv tool install poethepoet
+```
+uv automatically ensures that the correct python version specified in your
+`pyproject.toml` is installed.
+
+
+### Development Setup
+This part assumes you've installed `poe` and `uv` (see [Necessary Tooling](#necessary-tooling)).
+
+Afterwards, all you need to do is to run:
+```bash
+poe dev-setup
+```
+
+That will:
+
+1. Ensure a correct Python version is available and install it, if there isn't.
+2. Create a new virtualenv.
+3. Install all dependencies including dev dependencies (defined in the
+   `project.optional-dependencies` section of your `pyproject.toml`).
+4. Install the project in editable mode.
+5. Configure git pre-commit hooks.
+
+The pre-commit hooks are defined in
+[.pre-commit-config.yaml](.pre-commit-config.yaml) as usual.
+
+## Common Tasks
+
+All common tasks can be run through `poe`, such as:
+
+- Run linting, type checking, and all tests:
+    ```bash
+    poe check
+    ```
+  Linting and type checking are also run automatically on each commit via
+  pre-commit hooks. If you want to skip running the pre-commit hooks, use
+    ```commandline
+    git commit --no-verify -m "your commit message here"
+    ```
+- Build the docs and open a browser with the latest version.
+    ```bash
+    poe docs-serve
+    ```
+  If you want to inspect the generated docs, build them with `poe docs-build` and
+  check the `site/` directory.
+- Find out what other commands exist.
+    ```bash
+    poe --help
+    ```
+
+
+### Running a Python Command
+
+To run a Python in the virtualenv managed by `uv`, use:
+
+```bash
+uv run python your_script.py
+```
+
+For more info, see the
+[uv docs](https://docs.astral.sh/uv/reference/cli/#uv-run).
+
+### Adding a Dependency
+
+Adding a core dependency:
+
+```bash
+uv add torch
+```
+> 💡_Adding pytorch as a dependency may need a bit more attention, see the
+> [uv documentation](https://docs.astral.sh/uv/guides/integration/pytorch/)
+> for more information._
+
+Adding a dependency to an optional group, e.g. the dev group:
+
+```bash
+uv add pytest --optional dev
+```
+
+For more info, see the
+[uv docs](https://docs.astral.sh/uv/concepts/dependencies/)
+
+### Installing core dependencies and an additional dependency group
+
+For example, to install the `docs` group in addition to core dependencies:
+
+```bash
+uv sync --extra docs
+```
+
+### Updating the Lock File
+
+`uv` updates your `uv.lock` file automatically whenever you execute a
+"project command" such as `uv run` or `uv sync`. If you want to do this step
+manually, you can run
+Add new libraries without updating installed libraries
+```bash
+uv lock
+```
+or update everything with
+```bash
+uv upgrade
+```
+see `uv lock --help` for more information.
+
+### Apply Template Changes to the Project
+
+```bash
+poe template-update
+```
+**Warning:** Currently, using `git mergetools` or built-in mergetools for your
+IDE (VS Code, Intellij, ...) may not resolve conflicts properly. Therefore,
+you need to resolve conflicts manually, if there is
+a file with conflicts shown in your git repo after executing `poe
+template-update` (i.e. by directly editing the file and not opening it in a
+merge tool).
+
+### Use a Different Python for the Virtualenv
+
+uv supports setting which Python version should be used for your virtualenv
+(see [documentation](https://docs.astral.sh/uv/concepts/python-versions/) for more information)
+**Note:** These options should only be necessary in special cases. By
+default, uv
+ensures that the Python version specified in your `pyproject.toml`
+is installed and use it whenever you execute a command with uv (or `poe`).
+
+## Dynamic Versioning: How-to
+
+`cz` (commitizen) is recommended to track the project's version. `uv` will be aware
+of the respective version.
+
+
+### Conventional Commits
+
+[Conventional commits](https://www.conventionalcommits.org) is a specification for
+adding human and machine readable meaning to commit messages, allowing structured
+processing e.g. for changelogs.
+
+Whenever you would commit using
+```bash
+git commit ...
+```
+
+You call instead:
+```bash
+cz commit
+```
+which guides the commit message creation through a set of questions. If the commit
+failed (e.g. because the pre-commit hooks failed), you can retry committing:
+```bash
+cz commit --retry
+```
+
+
+### Versioning
+
+Versions are pinned on the project using git tags. Tags provide the best traceability
+and are acknowledged to be industry standard. The recommended way to create new tags is
+using commitizen which with calculate the version from conventional commit messages in
+the git history.
+
+The command to do that is
+```bash
+cz bump
+```
+
+You can check the new version with
+
+```bash
+uv sync
+```
+_Note:_ The resulting list is sorted alphabetically. For your own package,
+check the entries starting with `~`.
+
+This will by default configuration also automatically create or update the CHANGELOG.md
+file based on the template file 'templates/CHANGELOG.md.j2'.
+
+
+## Logging
+Logging is done in a structured way. For this logging needs to be configured
+once at the entrypoint of your application with
+```python
+from {{ package_name }}.loggingconfig import setup_logging
+
+# set the logging configuration
+setup_logging()
+```
+afterwards you can use the logger with
+```python
+import logging
+
+logger = logging.getLogger(__name__)
+
+logger.info(
+        "generic info",
+        extra={
+            "key": "value",
+        },
+    )
+```
+(for a working example see also `src/{{ package_name }}/__main__.py`)
