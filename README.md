@@ -36,7 +36,7 @@ This template is based on [copier](https://copier.readthedocs.io/en/stable/). Se
 ## How to bootstrap a new project from this template
 
 Prerequisites:
-- You need to have access to the repository on gitlab and 
+- You need to have access to the repository on Github and 
 configure `git` in your shell to be able to as well.
 - You need to have [`copier`](https://copier.readthedocs.io/en/stable/#installation) installed. We recommend using `uv` for this, 
   as you will need it when using the template anyway. If you don't have uv installed, see the [uv documentation](https://docs.astral.sh/uv/getting-started/installation/).
