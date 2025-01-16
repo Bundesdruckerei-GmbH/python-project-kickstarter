@@ -21,7 +21,7 @@ We keep this maintainable by including the base template as a git submodule in `
 and rely on [Renovate](https://docs.renovatebot.com/) to automatically
 update the submodule reference whenever the base changes.
 
-With this approach, a conflicting file in a sub template look something like:
+With this approach, a conflicting file in a sub template looks something like:
 
 ```jinja
 # file: template/pyproject.toml.jinja
@@ -42,7 +42,7 @@ With this setup, users can run the following and get a functional template
 copier copy https://github.com/Bundesdruckerei-GmbH/python-project-kickstarter.git .
 copier copy https://github.com/your_username/your_template_extension.git --data-file copier-answers/python-project-kickstarter.yml .
 ```
-,where "your_template_extension" is another copier template designed to placed on top
+, where "your_template_extension" is another copier template designed to placed on top
 of this basic template for additional or adjusted features.
 
 The two templates remain independent in the eyes of copier and users have to update both
@@ -54,7 +54,7 @@ Currently not published.
 
 ## Possible Extensions
 
-Currently we're limited to adding to the end of files. If the base template is modified
+Currently, we're limited to adding to the end of files. If the base template is modified
 to include [jinja
 blocks](https://jinja.palletsprojects.com/en/3.1.x/templates/#template-inheritance)
 then we could add options to the middle as well.

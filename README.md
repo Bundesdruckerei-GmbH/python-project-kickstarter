@@ -83,7 +83,7 @@ management (bumping) and changelog creation. To install it, call
 ```bash
 uv tool install commitizen
 ```
-,which makes the CLI command `cz` available.
+, which makes the CLI command `cz` available.
 
 
 # Template Versioning Strategy
