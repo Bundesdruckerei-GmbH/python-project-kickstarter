@@ -1,13 +1,29 @@
-# Code Standards
+# Python Project Kickstarter
 
-A template for python projects.
+This is a template for a basic Python project. It ships several provisioned module files
+as well as tooling and corresponding configuration to streamline development, such as 
 
-It provides for example:
-- A package management tool (`uv`)
-- A linter and formatter with predefined rules (`ruff`)
-- An initial Gitlab CI pipeline
-- Tooling to generate documentation for your project
-- A standard for logging
+* ‘poethepoet’ for running tasks 
+* ‘uv’ for managing python versions, dependencies and virtual environments 
+* ‘ruff’ for linting and auto-reformatting 
+* ‘mypy’ for type checking 
+* ‘bandit’ for vulnerability and security checks 
+* Reasonable default configurations for ruff, mypy, and bandit
+* ‘pytest’ as testing tool 
+* ‘pre-commit’ for easy integration of pre-commit hooks 
+  * The hooks are setup to automatically conduct a variety of checks before an actual
+    commit, such as unit tests, type checks, and formatting 
+* ‘commitizen’ for easy creation of conventional commits 
+ 
+Since we usually work in Gitlab, we also incorporated some basic CI/CD, that serves as a
+starting point for more project specific pipelines and already includes automatic
+linting, testing, and format checks, corresponding to the steps defined as pre-commit
+hooks.
+
+Finally, the template includes a README with (templated) instructions about project
+setup, usage and general structure for the additional documentation developers should
+provide while developing the project. 
+
 
 _Note: Currently Python versions 3.9, 3.11, and 3.12 are selectable when 
 setting up your repo, 3.13 is not included for now, since many packages don't 
