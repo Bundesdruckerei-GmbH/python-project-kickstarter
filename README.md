@@ -3,17 +3,17 @@
 This is a template for a basic Python project. It ships several provisioned module files
 as well as tooling and corresponding configuration to streamline development, such as 
 
-* ‘poethepoet’ for running tasks 
-* ‘uv’ for managing python versions, dependencies and virtual environments 
-* ‘ruff’ for linting and auto-reformatting 
-* ‘mypy’ for type checking 
-* ‘bandit’ for vulnerability and security checks 
+* `poethepoet` for running tasks 
+* `uv` for managing python versions, dependencies and virtual environments 
+* `ruff` for linting and auto-reformatting 
+* `mypy` for type checking 
+* `bandit` for vulnerability and security checks 
 * Reasonable default configurations for ruff, mypy, and bandit
-* ‘pytest’ as testing tool 
-* ‘pre-commit’ for easy integration of pre-commit hooks 
+* `pytest` as testing tool 
+* `pre-commit` for easy integration of pre-commit hooks 
   * The hooks are setup to automatically conduct a variety of checks before an actual
     commit, such as unit tests, type checks, and formatting 
-* ‘commitizen’ for easy creation of conventional commits 
+* `commitizen` for easy creation of conventional commits 
  
 Since we usually work in Gitlab, we also incorporated some basic CI/CD, that serves as a
 starting point for more project specific pipelines and already includes automatic
