@@ -13,10 +13,10 @@ email to [opensource@bdr.de](opensource@bdr.de).
 
 ## Security Process
 
-1. Your report will be reviewed, and you'll receive a response in a timely manner
-   confirming its receipt (reaction times have to be defined).
+1. Your report will be reviewed, and you'll receive a response within one week
+   confirming its receipt.
 2. The team will investigate the issue and provide you with an initial assessment and
-   expected resolution timeline (reaction times have to be defined).
+   expected resolution timeline within two weeks.
 3. Once the incident has been resolved, the team will add either a Fix or a Known Issue
    to the Release Notes.
 
