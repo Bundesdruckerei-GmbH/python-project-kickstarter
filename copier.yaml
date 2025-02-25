@@ -7,6 +7,11 @@ package_name: "{{ project_name|lower|replace(' ', '_') }}"
 
 project_description:
   type: str
+  help: "Project description"
+  validator: >-
+      {% if not project_description %}
+      project_description cannot be empty!
+      {% endif %}
 authors: "A1 <a1@email.com>,A2 <a2@email.com>"
 
 python_version:
