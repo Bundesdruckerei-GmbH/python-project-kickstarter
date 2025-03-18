@@ -15,8 +15,8 @@ issue becomes public.
 
 ## Security Process
 
-1. Your report will be reviewed, and you'll receive a response in a timely confirming
-   its receipt.
+1. Your report will be reviewed, and you'll receive a response in a timely manner
+   confirming its receipt.
 2. The team will investigate the issue and provide you with an initial assessment and
    expected resolution timeline.
 3. Once the incident has been resolved, the team will add either a Fix or a Known Issue
