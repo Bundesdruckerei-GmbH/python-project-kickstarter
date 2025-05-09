@@ -125,12 +125,9 @@ see `uv lock --help` for more information.
 ```bash
 poe template-update
 ```
-**Warning:** Currently, using `git mergetools` or built-in mergetools for your
-IDE (VS Code, Intellij, ...) may not resolve conflicts properly. Therefore,
-you need to resolve conflicts manually, if there is
-a file with conflicts shown in your git repo after executing `poe
-template-update` (i.e. by directly editing the file and not opening it in a
-merge tool).
+
+The update might create conflicts which have to be manually resolved before committing.
+
 
 ### Use a Different Python for the Virtualenv
 
