@@ -89,8 +89,9 @@ In order to update the `uv` version, change it in the following places:
 - `copier.yaml`
 - `README.md`
 - `gitlab-ci.yml`
-- `gitlab-ci.yml.jinja`
-- `README.md.jinja`
+- `template/gitlab-ci.yml.jinja`
+- `template/README.md.jinja`
+- `template/.pre-commit-config.yaml`
 
 All uv versions in templated (`.jinja`) files will be changed automatically.
 
