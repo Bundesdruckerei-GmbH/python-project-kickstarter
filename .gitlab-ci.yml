@@ -21,7 +21,7 @@ before_script:
   - python --version; pip --version
   # install uv
   - curl -LsSf https://astral.sh/uv/${UV_VERSION}/install.sh | sh
-  - uv tool install copier@9.4.1
+  - uv tool install copier@9.7.1
   - uv tool install poethepoet
   - uv tool install pre-commit
 
