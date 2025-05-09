@@ -40,7 +40,7 @@ Prerequisites:
 configure `git` in your shell to be able to as well.
 - You need to have [`copier`](https://copier.readthedocs.io/en/stable/#installation) installed. We recommend using `uv` for this, 
   as you will need it when using the template anyway. If you don't have uv installed, see the [uv documentation](https://docs.astral.sh/uv/getting-started/installation/).
-> 💡 **We currently use uv version 0.5.1** - you can specify the version with
+> 💡 **We currently use uv version 0.6.3** - you can specify the version with
 > the download URL `https://astral.sh/uv/${UV_VERSION}/install.sh`
 
 Install copier:
@@ -84,6 +84,15 @@ copier update -a .copier-answers/python-project-kickstarter.yml  # Pull new chan
 
 See [Creating a Subtemplate](./docs/sub-template.md)
 
+# Updating UV version
+In order to update the `uv` version, change it in the following places:
+- `copier.yaml`
+- `README.md`
+- `gitlab-ci.yml`
+- `gitlab-ci.yml.jinja`
+- `README.md.jinja`
+
+All uv versions in templated (`.jinja`) files will be changed automatically.
 
 # Conventional Commits
 
