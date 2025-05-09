@@ -92,12 +92,6 @@ deps = ["_install-docs"]
 minversion = "6.0"
 testpaths = ['tests']
 
-[tool.poetry-dynamic-versioning]
-enable = true
-bump = true
-# Omit having to write leading v in git tag ...
-pattern = "default-unprefixed"
-
 [tool.ruff]
 line-length = {{ line_length }}
 target-version = "py{{ python_version | replace(".", "") }}"
