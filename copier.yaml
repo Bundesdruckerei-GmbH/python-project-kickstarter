@@ -2,8 +2,26 @@ project_name:
   type: str
   help: "Project Name"
 
-project_slug: "{{ project_name|lower|replace(' ', '-') }}"
-package_name: "{{ project_name|lower|replace(' ', '_') }}"
+project_slug:
+  type: str
+  default: "{{ project_name | lower | regex_replace('[^a-z0-9\\s_-]', '') | regex_replace('\\s+|_+', '-') | regex_replace('-+', '-') | trim('-') }}"
+  help:  "Project Slug"
+  validator: >-
+      {% if (project_slug | length) < 3 %}
+      project_slug must contain at least 3 characters.
+      {% endif %}
+      {% if project_slug != project_slug | lower | regex_replace('[^a-z0-9\\s_-]', '') | regex_replace('\\s+|_+', '-') | regex_replace('-+', '-') | trim('-') %}
+      Allowed characters are a-z (lower case), 0-9 and "-" in between words (no other special characters)
+      {% endif %}
+
+package_name:
+  type: str
+  help: PyPI package name
+  default: "{{ project_slug | replace('-', '_') }}"
+  validator: >-
+      {% if (package_name | length) < 3 %}
+      package_name must contain at least 3 characters.
+      {% endif %}
 
 project_description:
   type: str
